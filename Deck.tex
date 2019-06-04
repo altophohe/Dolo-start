@@ -25,8 +25,8 @@
 
 \begin{frame}{Introduction}
     \begin{itemize}
-        \item If you do not have any prior knowledge about \textit{Dolo} and try to follow the instruction provided by the program developer, you will almost always encounter error messages from the very beginning. 
-        \item For example, you can find the following instruction in order to verify whether installation is done well or not. 
+        \item If you do not have any prior knowledge about \textit{Dolo} and try to follow the instruction provided by the program developer, you will be likely to encounter an error message from the very beginning. 
+        \item For example, you can find the  instruction in order to verify whether installation is done well or not.
         \item Unfortunately, it will not work! It is because the default \textit{YAML} page is expired.
     \end{itemize}
     \end{frame}
@@ -38,7 +38,7 @@
     \item Instead of using the url in the manual, copy and paste this one: \url{https://raw.githubusercontent.com/EconForge/dolo/master/examples/models/rbc.yaml}  
     \item Your installation might be done well if \textit{Dolo} is running without error messages, once you try with url given above. 
         \item In order to write down your own model, the first step you have to do is making a github repository.
-        \item Note: You have to make your repository \textbf{public}. Otherwise, your local python like \textit{Jupyter notebook} cannot call your \textit{YAML} file. 
+        \item Note: You have to make your repository \textbf{public}. Otherwise, your local python like \textit{Jupyter notebook} cannot call your \textit{YAML} file in Github. 
         \item Let's start from basic housechores step by step. 
     \end{itemize}
 \end{frame}
@@ -86,13 +86,14 @@
   
     \item Type following commands on your \textit{Jupyter notebook}:\\
     
-    filename = ('\textit{your yaml raw file address here}')\\
-    model = yaml\_ import(filename)\\
+    filename = ('\textit{your yaml raw file url here}')\\
+    model = yaml\_import(filename)\\
     display(model)  
 
-\item If you write a model file without error and dolo is installed well in your computer, you would see that Jupyter displays the model. 
-\item If you can manage to get here, you are basically ready to do further works such as impulse-response, simulations, projection and so on.
-\item The key and most tricky part for your own project may be to write your model file properly. Once you can run your model, thanks to dolo's built-in commands, extended works can be easily conducted as if \textit{Dynare} does. 
+\item If you wrote a model without errors and Dolo is installed well in your computer, you will see that Jupyter displays the model. 
+\item If you can manage to get here, you are basically ready to do further stuffs such as impulse-response, simulations, projection and so on.
+\item The key and most tricky part for your own project may be to write your model file properly. Once you can launch your model, extended works can be easily implemented as if \textit{Dynare} does, thanks to Dolo's built-in commands. 
+\item Especially, you don't need to write down a code from scratch for fully non-linear model solving. This is a powerful feature of Dolo, which Dynare or other occasionally binding constraint solvers such as \textit{occbin} do not have. 
 \end{itemize}
 \end{frame}
 
@@ -109,14 +110,15 @@
     \begin{itemize}
         \item Github Raw file is not updated in real time, but you need to wait for a few seconds. So, when you change the model and apply the url to your python code, the changed yaml version may not be used yet. So, you have to check it first. 
         \item As other python coding practice, indentation seems to be important. Do not make any unnecessary space in your code. 
-        \item When using lambda for your parameter or variable, you should be careful as lambda is an integral python command declaring a local function. I highly recommend  to use a different name for your lambda parameter (or variable) .  \item I don't know the reason exactly, but I get an error when I write some comment in the code using sharp mark. 
+        \item When using lambda for your parameter or variable, you should be careful as lambda is a python command declaring a local function. I highly recommend  to use a different name for your lambda parameter (or variable) .  
+        % \item I don't know the reason exactly, but I get an error when I write some comment in the code using sharp mark. 
         
     \end{itemize}
 
 \end{frame}
 \begin{frame}{Few remarks when writing a model}
     \begin{itemize}
-       \item In the manual, it is said that contemporaneous endogenous variables can be written in \textit{direct response} section. However, I also get the error message. Once I put those equations in the definition section, the code seems to run. \item When writing the equations, it seems that you have to write those in accordance with the order of variable declaration. For example, if you declare the state variable as [k,A], then the transition equation for k should be written first than A.  
+       \item In the manual, it is said that contemporaneous endogenous variables can be written in \textit{direct response} section. However, I also get the error message. Once I put those equations in the definition section, the code seems to run. \item When writing the equations, it seems that you have to write those in accordance with the order of variable declaration. For example, if you declare the state variable as [k,A], then the transition equation for k should be written in prior to A.  
     \end{itemize}
 \end{frame}
 \begin{frame}{Model}
