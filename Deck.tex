@@ -89,14 +89,56 @@
     model = yaml\_ import(filename)\\
     display(model)  
 
-\item If you can see that Jupyter displays the model, it means that the very first step is smoothly done. 
-\item The remaining parts are writing your own model properly and run. 
+\item If you can see that Jupyter displays the model, the very first step is smoothly done. 
+\item The remaining parts are writing your own model properly and run.
+\item Unfortunately, you will encounter series of error messages again... 
 \end{itemize}
 \end{frame}
-\begin{frame}{Dolo examples}
+
+\begin{frame}{Model}
     \begin{itemize}
-        \item Let's choose any example in Pablo's repository and make \textit{YAML} file in your own repository. 
-        \item 
+        \item I would try to solve the simplified RBC model with search and matching and costly separation. 
+        \item Only 1 exogenous shock in place: TFP
+        \item Idiosyncratic productivity shock follows Pareto distribution, defined over the interval $[1, \infty]$
+        \item Due to this lower bound, the occasionally binding constraint is likely to occur and thus non-linear projection is necessary to solve the model accurately. 
+        \item I skip explaining the model in detail as it is not our main interest, but just provide the equilibrium conditions. 
     \end{itemize}
+\end{frame}
+\begin{frame}{Model}
+    \begin{align}
+    & A_t=\textbf{A}e^{\tilde{A}_t}\\
+    & \tilde{A}_t=\rho_A \tilde{A}_{t-1}+e_t^A\\
+    &-T-\mu_tA_t\bar{a}_t-\lambda_t+e_{\bar{a},t}=0\\
+    & -\mu_tA_t\hat{a}_t-\lambda_t+e_{\hat{a},t}=0\\
+    &F_t=1-(\frac{a_L}{\bar{a}_t})^{\alpha}\\
+    &\hat{F}_t=1-(\frac{a_L}{\hat{a}_t})^{\alpha}\\
+    &E(\bar{a}_t)=\frac{\alpha}{\alpha-1}(\frac{a_L}{\bar{a}_t})^{\alpha-1}\\
+    &E(\hat{a}_t)=\frac{\alpha}{\alpha-1}(\frac{a_L}{\hat{a}_t})^{\alpha-1}
+      \end{align}
+      where $e_{\bar{a},t}$ and $e_{\hat{a},t}$ are the KKT Lagrange multipliers, satisfying $e_{\bar{a},t}=0$ iff $\bar{a}_t=a_L$. $\hat{a}_t$ case is similar. 
+\end{frame}
+
+\begin{frame}{Model}
+    \begin{align}
+     &\tilde{u}_t=u_{t-1}+F_tn_{t-1}\\
+     &\Theta\frac{Y_t}{n_t}=q_t(\mu_tA_tE(\bar{a}_t)+\lambda_t(1-\hat{F}_t))\\
+    &n_t=(1-F_t)n_{t-1}+(1-\hat{F}_t)M_{t}\\
+    &M_t=\chi \tilde{u}_{t}^\gamma v_{t}^{1-\gamma}\\
+    &u_t=1-n_t\\
+    &Y_t=A_t(n_{t-1}E(\bar{a}_t)+M_tE(\hat{a}_t))\\
+    &q_t= \frac{M_t}{v_t} \\
+    &f_t=\frac{M_t}{\tilde{u}_{t}}\\
+    &\theta_t=\frac{v_t}{\tilde{u}_t}
+    \end{align}
+\end{frame}
+\begin{frame}{Model}
+    \begin{align}
+      &w_t=w(\frac{Y_t}{Y})^{\gamma_w}\\
+    &b_t=\tilde{r}w_t\\
+    &C_t=w_tn_t+b_tu_t\\
+     &C_t+C_t^e=(1-\Theta(\frac{ v_t}{n_t})-\frac{TF_tn_{t-1}}{Y_t} -\Phi)Y_t\\
+    &1= \beta E_t\left[Q_t\frac{C_{t+1}^{-\sigma}}{C_t^{-\sigma}}\right]\\
+    & \lambda_t=-w_t+\beta E_t[-TF_{t+1}+\mu_{t+1}A_{t+1}\int_{\bar{a}_{t+1}}af(a)da+(1-F_{t+1})\lambda_{t+1}]
+      \end{align}
 \end{frame}
 \end{document}
