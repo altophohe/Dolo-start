@@ -27,7 +27,7 @@
     \begin{itemize}
         \item If you do not have any prior knowledge about \textit{Dolo} and try to follow the instruction provided by the program developer, you will almost always encounter error messages from the very beginning. 
         \item For example, you can find the following instruction in order to verify whether installation is done well or not. 
-        \item Unfortunately, it will not work! It is because the default \textit{YAML} page in the manual is expired.
+        \item Unfortunately, it will not work! It is because the default \textit{YAML} page is expired.
     \end{itemize}
     \end{frame}
 \begin{frame}
@@ -35,7 +35,7 @@
 \end{frame}
 \begin{frame}
     \begin{itemize}
-    \item Instead of the \textit{YAML} address in the manual, use this url: \url{https://github.com/EconForge/dolo/blob/master/examples/models/rbc.yaml}  
+    \item Instead of using the url in the manual, copy and paste this one: \url{https://raw.githubusercontent.com/EconForge/dolo/master/examples/models/rbc.yaml}  
     \item Your installation might be done well if \textit{Dolo} is running without error messages, once you try with url given above. 
         \item In order to write down your own model, the first step you have to do is making a github repository.
         \item Note: You have to make your repository \textbf{public}. Otherwise, your local python like \textit{Jupyter notebook} cannot call your \textit{YAML} file. 
@@ -56,9 +56,10 @@
     \begin{itemize}
     \item If you could manage to do all steps so far, now you made your own Github repository. 
     \item You can write your own \textit{YAML} file which would be the the backbone of Dolo computation.
-        \item The easiest way to start is utilizing examples provided by the developer. You can find several examples from Pablo Winant's Github repository. 
+        \item The easiest way for a beginner is utilizing examples provided by the developer. You can find several examples from Pablo Winant's Github repository:\\
+        \url{https://github.com/EconForge/dolo/tree/master/examples/models}
         \item The Dolo language and the way to write down the model can be found at \url{https://dolo.readthedocs.io/en/latest/}
-        \item Writing an \textit{YAML} model file in your own repository may not be easy. Let's start from Pablo Winant's examples. 
+        \item Writing an \textit{YAML} model file in your own repository may not be easy. Let's start from Pablo Winant's example. 
     \end{itemize}
 \end{frame}
     \begin{frame}{Dolo examples}
@@ -69,9 +70,9 @@
     \end{frame}
     \begin{frame}{Dolo examples}
         \begin{itemize}
-            \item From Pablo's github repository, we can copy and paste a \textit{YAML} example. 
-            \item If you make your own \textit{YAML} model file, then you have to be able to run it in your local python. 
-            \item To call the model file, you have to get the raw content of files stored in github. This can be done as follows. 
+            \item From Pablo's github repository, you can copy and paste any \textit{YAML} model file. 
+            \item If you make an \textit{YAML} file in your own repository, then you have to be able to run it in your local python. 
+            \item To call the model file, you have to get the raw content of files stored in Github. This can be done as follows. 
         \end{itemize}
     \end{frame}
      \begin{frame}{}
@@ -83,31 +84,43 @@
 \begin{frame}{Dolo examples}
 \begin{itemize}
   
-    \item Type on your own \textit{Jupyter notebook} as follows:\\
+    \item Type following commands on your \textit{Jupyter notebook}:\\
     
     filename = ('\textit{your yaml raw file address here}')\\
     model = yaml\_ import(filename)\\
     display(model)  
 
-\item If you can see that Jupyter displays the model, the very first step is smoothly done. 
-\item The remaining parts are writing your own model properly and run.
-\item Unfortunately, you will encounter series of error messages again... 
+\item If you write a model file without error and dolo is installed well in your computer, you would see that Jupyter displays the model. 
+\item If you can manage to get here, you are basically ready to do further works such as impulse-response, simulations, projection and so on.
+\item The key and most tricky part for your own project may be to write your model file properly. Once you can run your model, thanks to dolo's built-in commands, extended works can be easily conducted as if \textit{Dynare} does. 
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Model}
     \begin{itemize}
-        \item I would try to solve the simplified RBC model with search and matching and costly separation. 
-        \item Only 1 exogenous shock in place: TFP
-        \item Idiosyncratic productivity shock follows Pareto distribution, defined over the interval $[1, \infty]$
-        \item Due to this lower bound, the occasionally binding constraint is likely to occur and thus non-linear projection is necessary to solve the model accurately. 
-        \item I skip explaining the model in detail as it is not our main interest, but just provide the equilibrium conditions. 
+        \item I try to solve a simplified RBC model with a search and matching friction in the labor market and costly separation. 
+        \item Only 1 exogenous shock is in place: TFP
+        \item Idiosyncratic match specific productivity shock follows Pareto distribution, defined over the interval $[1, \infty]$
+        \item Due to this lower bound, the occasionally binding constraint is likely to bind(no-separation corner solution). As a result, the standard perturbation method is not enough to accurately solve the model.   
+        \item I skip explaining the model in detail as it is not our main interest, but just enumerate the equilibrium conditions. 
+    \end{itemize}
+\end{frame}
+\begin{frame}{Few remarks when writing a model}
+    \begin{itemize}
+        \item Github Raw file is not updated in real time, but you need to wait for a few seconds. So, when you change the model and apply the url to your python code, the changed yaml version may not be used yet. So, you have to check it first. 
+        \item As other python coding practice, indentation seems to be important. Do not make any unnecessary space in your code. 
+        \item When using lambda for your parameter or variable, you should be careful as lambda is an integral python command declaring a local function. I highly recommend  to use a different name for your lambda parameter (or variable) .  \item I don't know the reason exactly, but I get an error when I write some comment in the code using sharp mark. 
+        
+    \end{itemize}
+
+\end{frame}
+\begin{frame}{Few remarks when writing a model}
+    \begin{itemize}
+       \item In the manual, it is said that contemporaneous endogenous variables can be written in \textit{direct response} section. However, I also get the error message. Once I put those equations in the definition section, the code seems to run. \item When writing the equations, it seems that you have to write those in accordance with the order of variable declaration. For example, if you declare the state variable as [k,A], then the transition equation for k should be written first than A.  
     \end{itemize}
 \end{frame}
 \begin{frame}{Model}
     \begin{align}
-    & A_t=\textbf{A}e^{\tilde{A}_t}\\
-    & \tilde{A}_t=\rho_A \tilde{A}_{t-1}+e_t^A\\
     &-T-\mu_tA_t\bar{a}_t-\lambda_t+e_{\bar{a},t}=0\\
     & -\mu_tA_t\hat{a}_t-\lambda_t+e_{\hat{a},t}=0\\
     &F_t=1-(\frac{a_L}{\bar{a}_t})^{\alpha}\\
@@ -115,7 +128,7 @@
     &E(\bar{a}_t)=\frac{\alpha}{\alpha-1}(\frac{a_L}{\bar{a}_t})^{\alpha-1}\\
     &E(\hat{a}_t)=\frac{\alpha}{\alpha-1}(\frac{a_L}{\hat{a}_t})^{\alpha-1}
       \end{align}
-      where $e_{\bar{a},t}$ and $e_{\hat{a},t}$ are the KKT Lagrange multipliers, satisfying $e_{\bar{a},t}=0$ iff $\bar{a}_t=a_L$. $\hat{a}_t$ case is similar. 
+      where $e_{\bar{a},t}$ and $e_{\hat{a},t}$ are the KKT Lagrange multipliers, satisfying $e_{\bar{a},t}=0$ iff $\bar{a}_t=a_L$. $\hat{a}_t$ case is similar. $\lambda$ above is named as $x$ in my \textit{YAML} file. 
 \end{frame}
 
 \begin{frame}{Model}
@@ -138,7 +151,13 @@
     &C_t=w_tn_t+b_tu_t\\
      &C_t+C_t^e=(1-\Theta(\frac{ v_t}{n_t})-\frac{TF_tn_{t-1}}{Y_t} -\Phi)Y_t\\
     &1= \beta E_t\left[Q_t\frac{C_{t+1}^{-\sigma}}{C_t^{-\sigma}}\right]\\
-    & \lambda_t=-w_t+\beta E_t[-TF_{t+1}+\mu_{t+1}A_{t+1}\int_{\bar{a}_{t+1}}af(a)da+(1-F_{t+1})\lambda_{t+1}]
+    & \lambda_t=-w_t+\beta E_t[-TF_{t+1}+\mu_{t+1}A_{t+1}Ea_{t+1}+(1-F_{t+1})\lambda_{t+1}]\\  & A_t=\textbf{A}e^{\tilde{A}_t}\\
+    & \tilde{A}_t=\rho_A \tilde{A}_{t-1}+e_t^A
       \end{align}
+\end{frame}
+\begin{frame}{Model}
+    \begin{itemize}
+        \item \textit{YAML} model file can be written such that:
+    \end{itemize}
 \end{frame}
 \end{document}
